@@ -1,4 +1,5 @@
 import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
+import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ class RecieverDetails extends StatelessWidget {
         children: [
           SizedBox(height: 16),
           Text(
-            'Receiver Details',
+            AppStrings.receiverDetails,
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -40,7 +41,7 @@ class RecieverDetails extends StatelessWidget {
   }
 
   Widget buildIndentificationNoWidget(Order order) {
-    final titleList = ['DL No', 'GST No', 'Contact Numbet'];
+    final titleList = [AppStrings.dlNo, AppStrings.gstNo, AppStrings.contactNo];
     final dataList = [
       order.dlNo ?? 'N/A',
       order.gstNo ?? 'N/A',

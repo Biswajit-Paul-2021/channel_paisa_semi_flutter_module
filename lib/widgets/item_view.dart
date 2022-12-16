@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
+import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,7 @@ class ItemView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            'Selected Suppliers',
+            AppStrings.selectedSuppliers,
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
         ),

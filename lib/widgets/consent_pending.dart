@@ -1,4 +1,5 @@
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
+import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/order_details.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +18,12 @@ class ConsentPending extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  platform.invokeMethod("showToast", "Accepted");
+                  platform.invokeMethod(AppStrings.showToast, "Accepted");
                 },
-                child: Text('Accept',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(
+                  AppStrings.accepted,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style: ElevatedButton.styleFrom(
                     primary: AppColors.primaryDarkColor),
               ),
@@ -32,10 +35,12 @@ class ConsentPending extends StatelessWidget {
               height: 45,
               child: ElevatedButton(
                 onPressed: () {
-                  platform.invokeMethod("showToast", "Rejected");
+                  platform.invokeMethod(AppStrings.showToast, "Rejected");
                 },
-                child: Text('Reject',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text(
+                  AppStrings.rejected,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 style:
                     ElevatedButton.styleFrom(primary: AppColors.rejectedColor),
               ),

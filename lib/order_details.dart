@@ -1,4 +1,5 @@
 import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
+import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:channel_paisa_semi_flutter_module/widgets/consent_pending.dart';
 import 'package:channel_paisa_semi_flutter_module/widgets/order_item_details.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final platform = MethodChannel("com.channelpaisa.channelpaisa");
+final platform = MethodChannel(AppStrings.methodChannel);
 
 class OrderDetails extends StatefulWidget {
   OrderDetails();
@@ -111,10 +112,10 @@ class _OrderDetailsState extends State<OrderDetails>
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () async {
-            await platform.invokeMethod("pop");
+            await platform.invokeMethod(AppStrings.pop);
           },
         ),
-        title: Text('Order Details'),
+        title: Text(AppStrings.orderDetails),
       ),
       body: BlocBuilder<OrderDetailBloc, OrderDetailState>(
         builder: (context, state) {
@@ -137,7 +138,7 @@ class _OrderDetailsState extends State<OrderDetails>
 
   Future<dynamic> _onNativeCallHandler(MethodCall call) async {
     switch (call.method) {
-      case "reset":
+      case AppStrings.reset:
         final map = call.arguments as Map;
         final order = Order.fromJson(map);
         BlocProvider.of<OrderDetailBloc>(context)

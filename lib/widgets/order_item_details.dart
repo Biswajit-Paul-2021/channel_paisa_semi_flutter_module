@@ -1,5 +1,6 @@
 import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
+import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:channel_paisa_semi_flutter_module/widgets/item_view.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class OrderItemDetails extends StatelessWidget {
         children: [
           SizedBox(height: 8),
           Text(
-            'Order Details',
+            AppStrings.orderDetails,
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
