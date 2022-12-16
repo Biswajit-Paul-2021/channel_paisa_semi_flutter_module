@@ -83,6 +83,58 @@ class _OrderDetailsState extends State<OrderDetails>
           }
         ]
       },
+      {
+        "organization_code": "Encube",
+        "selected_suppliers": [
+          {
+            "supplier_uuid": "633bcdfdb9ffd27ed99cf657",
+            "name": "Arya Medical Agency",
+            "pan_no": "ADSPK4206B",
+            "gst_no": "10ADSPK4206B1Z6",
+            "dl_no": "781",
+            "supplier_type": "stockist",
+            "priority": 1
+          },
+          {
+            "supplier_uuid": "633bcdf7b9ffd27ed99cf039",
+            "name": "Bansal Drug Agency",
+            "pan_no": "ADWPB5057H",
+            "gst_no": "10ADWPB5057H1ZO",
+            "dl_no": "7",
+            "supplier_type": "stockist",
+            "priority": 2
+          },
+          {
+            "supplier_uuid": "633bcdf7b9ffd27ed99cf060",
+            "name": "BIHAR MEDICO",
+            "pan_no": "AJKPS3801Q",
+            "gst_no": "10AJKPS3801Q1ZZ",
+            "dl_no": "103",
+            "supplier_type": "stockist",
+            "priority": 3
+          }
+        ],
+        "ordered_items": [
+          {
+            "brand_name": "Soframycin",
+            "product_name": "Soframycin Skin Cream 30gm",
+            "uom": "box",
+            "quantity": 3,
+            "unit_price": 890.0,
+            "division_code": "ICON_TX",
+            "organization_code": "Encube"
+          },
+          {
+            "brand_name": "Soframycin2",
+            "product_name": "Soframycin Skin Cream 30gm",
+            "uom": "box",
+            "quantity": 3,
+            "unit_price": 220.0,
+            "division_code": "ICON_TX",
+            "organization_code": "Encube"
+          }
+        ]
+      },
     ],
     "delivery_address": {
       "line": "4, Moti Bhai Desai Chawl, Ganesh Nagar, Dahisar-E",
@@ -125,10 +177,7 @@ class _OrderDetailsState extends State<OrderDetails>
                   children: [
                     RecieverDetails(),
                     OrderItemDetails(),
-                    Visibility(
-                      visible: state.order.orderUuid == null,
-                      child: ConsentPending(),
-                    ),
+                    ConsentPending(),
                   ],
                 );
         },
@@ -140,9 +189,10 @@ class _OrderDetailsState extends State<OrderDetails>
     switch (call.method) {
       case AppStrings.reset:
         final map = call.arguments as Map;
-        final order = Order.fromJson(map);
+        final order = Order.fromJson(map['order']);
+        final authToken = map['auth-token'];
         BlocProvider.of<OrderDetailBloc>(context)
-            .add(OrderDetailGetDataEvent(order));
+            .add(OrderDetailGetDataEvent(order, authToken));
         break;
       default:
     }

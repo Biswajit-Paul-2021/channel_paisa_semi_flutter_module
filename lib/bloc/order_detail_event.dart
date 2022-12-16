@@ -7,5 +7,13 @@ class OrderDetailResetEvent extends OrderDetailEvent {}
 
 class OrderDetailGetDataEvent extends OrderDetailEvent {
   final Order order;
-  OrderDetailGetDataEvent(this.order);
+  final String authToken;
+  OrderDetailGetDataEvent(this.order, this.authToken);
 }
+
+class OrderDetailAcceptEvent extends OrderDetailEvent {
+  final OrderEvent orderEvent;
+  OrderDetailAcceptEvent(this.orderEvent);
+}
+
+enum OrderEvent { accepted, rejected }

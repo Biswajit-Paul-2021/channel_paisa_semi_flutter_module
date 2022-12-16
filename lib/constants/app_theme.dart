@@ -5,6 +5,9 @@ class AppTheme {
   final ThemeData _baseTheme = ThemeData();
 
   ThemeData get theme {
-    return _baseTheme.copyWith(primaryColor: AppColors.primaryColor);
+    return _baseTheme.copyWith(
+      primaryColor: AppColors.primaryColor,
+      accentColor: AppColors.primaryDarkColor,
+    );
   }
 }

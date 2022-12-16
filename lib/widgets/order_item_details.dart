@@ -1,5 +1,4 @@
 import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
-import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:channel_paisa_semi_flutter_module/widgets/item_view.dart';
@@ -36,30 +35,22 @@ class OrderItemDetails extends StatelessWidget {
   }
 
   Widget buildOrderDetail(Order order) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.primaryDarkColor),
-      ),
-      child: Column(
-        children: List.generate(
-          order.orderedOrganizations.length,
-          (index) {
-            return Column(
-              children: [
-                ItemView(
-                  orderedOrganization: order.orderedOrganizations[index],
-                ),
-                Visibility(
-                  child: SizedBox(height: 8),
-                  visible: index != order.orderedOrganizations.length - 1,
-                )
-              ],
-            );
-          },
-        ),
+    return Column(
+      children: List.generate(
+        order.orderedOrganizations.length,
+        (index) {
+          return Column(
+            children: [
+              ItemView(
+                orderedOrganization: order.orderedOrganizations[index],
+              ),
+              Visibility(
+                child: SizedBox(height: 16),
+                visible: index != order.orderedOrganizations.length - 1,
+              )
+            ],
+          );
+        },
       ),
     );
   }

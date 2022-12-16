@@ -27,7 +27,7 @@ class RecieverDetails extends StatelessWidget {
           ),
           SizedBox(height: 16),
           Text(
-            order.creatorName,
+            order.firmName,
             style: TextStyle(fontWeight: FontWeight.w500),
           ),
           SizedBox(height: 8),

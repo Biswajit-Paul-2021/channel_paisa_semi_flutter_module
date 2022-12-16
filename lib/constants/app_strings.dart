@@ -5,6 +5,7 @@ class AppStrings {
   static const String rejected = 'Rejected';
   static const String reset = 'reset';
   static const String pop = 'pop';
+  static const String popAndRefresh = 'popAndRefresh';
   static const String showToast = 'showToast';
   static const String orderDetails = 'Order Details';
   static const String dlNo = 'DL No';
