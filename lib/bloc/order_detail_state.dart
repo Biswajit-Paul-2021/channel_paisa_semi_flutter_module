@@ -7,12 +7,14 @@ class OrderDetailState {
   final bool isAccepted;
   final String errorTxt;
   final String authToken;
+  final String consentMessage;
   OrderDetailState({
     this.order,
     this.isLoading,
     this.isAccepted,
     this.errorTxt,
     this.authToken,
+    this.consentMessage,
   });
 
   factory OrderDetailState.reset() => OrderDetailState(
@@ -21,6 +23,7 @@ class OrderDetailState {
         isAccepted: false,
         errorTxt: '',
         authToken: '',
+        consentMessage: '',
       );
 
   OrderDetailState copyWith({
@@ -29,6 +32,7 @@ class OrderDetailState {
     bool isAccepted,
     String errorTxt,
     String authToken,
+    String consentMessage,
   }) {
     return OrderDetailState(
       order: order ?? this.order,
@@ -36,6 +40,7 @@ class OrderDetailState {
       isAccepted: isAccepted ?? this.isAccepted,
       errorTxt: errorTxt ?? this.errorTxt,
       authToken: authToken ?? this.authToken,
+      consentMessage: consentMessage ?? this.consentMessage,
     );
   }
 }

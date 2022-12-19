@@ -15,6 +15,7 @@ class Order {
     this.whatsapp,
     this.orderedOrganizations,
     this.deliveryAddress,
+    this.orderStatus,
   });
 
   int id;
@@ -30,6 +31,7 @@ class Order {
   String whatsapp;
   List<OrderedOrganization> orderedOrganizations;
   DeliveryAddress deliveryAddress;
+  String orderStatus;
 
   Order copyWith({
     int id,
@@ -45,6 +47,7 @@ class Order {
     String whatsapp,
     List<OrderedOrganization> orderedOrganizations,
     DeliveryAddress deliveryAddress,
+    String orderStatus,
   }) =>
       Order(
         id: id ?? this.id,
@@ -60,6 +63,7 @@ class Order {
         whatsapp: whatsapp ?? this.whatsapp,
         orderedOrganizations: orderedOrganizations ?? this.orderedOrganizations,
         deliveryAddress: deliveryAddress ?? this.deliveryAddress,
+        orderStatus: orderStatus ?? this.orderStatus,
       );
 
   factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
@@ -72,6 +76,7 @@ class Order {
         creatorName: json["creator_name"],
         channelPartnerId: json["channel_partner_id"],
         referenceNumber: json["reference_number"],
+        orderStatus: json["order_status"],
         orderDate: json["order_date"],
         firmName: json["firm_name"],
         gstNo: json["gst_no"],
@@ -90,6 +95,7 @@ class Order {
         "creator_name": creatorName,
         "channel_partner_id": channelPartnerId,
         "firm_name": firmName,
+        "order_status": orderStatus,
         "gst_no": gstNo,
         "dl_no": dlNo,
         "mobile": mobile,

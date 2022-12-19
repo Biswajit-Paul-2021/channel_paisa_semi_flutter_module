@@ -13,7 +13,7 @@ class ConsentPending extends StatelessWidget {
     return BlocConsumer<OrderDetailBloc, OrderDetailState>(
       listener: (context, state) {
         if (state.isAccepted) {
-          platform.invokeMethod(AppStrings.showToast, "Consent Accepted");
+          platform.invokeMethod(AppStrings.showToast, state.consentMessage);
           platform.invokeMethod(AppStrings.popAndRefresh);
         } else if (state.errorTxt.isNotEmpty) {
           platform.invokeMethod(AppStrings.showToast, state.errorTxt);
@@ -61,7 +61,7 @@ class ConsentPending extends StatelessWidget {
                           onPressed: () {
                             context.read<OrderDetailBloc>().add(
                                   OrderDetailAcceptEvent(
-                                    OrderEvent.accepted,
+                                    OrderEvent.rejected,
                                   ),
                                 );
                           },
