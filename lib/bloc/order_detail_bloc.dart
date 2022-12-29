@@ -10,9 +10,10 @@ part 'order_detail_state.dart';
 
 class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
   OrderDetailBloc() : super(OrderDetailState.reset());
+  // static const String _apiUrl =
+  //   'http://stageapi.channelpaisa.com/api/v4/orders/consent';
   static const String _apiUrl =
-      'http://stageapi.channelpaisa.com/api/v4/orders/consent';
-  // static const String _apiUrl = 'https://api.channelpaisa.com/api/v4/orders/consent';
+      'https://api.channelpaisa.com/api/v4/orders/consent';
   @override
   Stream<OrderDetailState> mapEventToState(OrderDetailEvent event) async* {
     if (event is OrderDetailGetDataEvent) {
