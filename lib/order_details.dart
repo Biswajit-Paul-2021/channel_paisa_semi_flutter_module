@@ -1,4 +1,3 @@
-import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
@@ -9,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-final platform = MethodChannel(AppStrings.methodChannel);
+import 'bloc/order_bloc/order_detail_bloc.dart';
+
+final platformOrder = MethodChannel(AppStrings.methodChannelOrder);
 
 class OrderDetails extends StatefulWidget {
   OrderDetails();
@@ -24,7 +25,7 @@ class _OrderDetailsState extends State<OrderDetails>
   @override
   void initState() {
     super.initState();
-    platform.setMethodCallHandler(_onNativeCallHandler);
+    platformOrder.setMethodCallHandler(_onNativeCallHandler);
   }
 
   @override
@@ -34,7 +35,7 @@ class _OrderDetailsState extends State<OrderDetails>
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () async {
-            await platform.invokeMethod(AppStrings.pop);
+            await platformOrder.invokeMethod(AppStrings.pop);
           },
         ),
         title: Text(AppStrings.orderDetails),

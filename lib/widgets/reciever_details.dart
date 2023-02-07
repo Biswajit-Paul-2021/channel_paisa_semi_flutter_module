@@ -1,4 +1,4 @@
-import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
+import 'package:channel_paisa_semi_flutter_module/bloc/order_bloc/order_detail_bloc.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/models/order.dart';
 import 'package:flutter/material.dart';

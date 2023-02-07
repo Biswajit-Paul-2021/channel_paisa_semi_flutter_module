@@ -1,4 +1,4 @@
-import 'package:channel_paisa_semi_flutter_module/bloc/order_detail_bloc.dart';
+import 'package:channel_paisa_semi_flutter_module/bloc/order_bloc/order_detail_bloc.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
 import 'package:channel_paisa_semi_flutter_module/order_details.dart';
@@ -13,10 +13,11 @@ class ConsentPending extends StatelessWidget {
     return BlocConsumer<OrderDetailBloc, OrderDetailState>(
       listener: (context, state) {
         if (state.isAccepted) {
-          platform.invokeMethod(AppStrings.showToast, state.consentMessage);
-          platform.invokeMethod(AppStrings.popAndRefresh);
+          platformOrder.invokeMethod(
+              AppStrings.showToast, state.consentMessage);
+          platformOrder.invokeMethod(AppStrings.popAndRefresh);
         } else if (state.errorTxt.isNotEmpty) {
-          platform.invokeMethod(AppStrings.showToast, state.errorTxt);
+          platformOrder.invokeMethod(AppStrings.showToast, state.errorTxt);
         }
       },
       builder: (context, state) {
