@@ -8,4 +8,5 @@ class AppColors {
   static final Color primaryNavBarColor = Color(0xffcb7300);
   static final Color accentColor = Color(0xfffea621);
   static final Color rejectedColor = Color(0xffc21319);
+  static final Color blackColor = Color(0xff474747);
 }

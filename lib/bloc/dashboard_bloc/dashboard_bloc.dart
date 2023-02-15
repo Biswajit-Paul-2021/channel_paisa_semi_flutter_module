@@ -38,7 +38,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           );
           if (response.statusCode == 200) {
             final body = jsonDecode(response.body);
-            final clients = body['clients'][0]['data'] as List;
+            final clients = body['clients']['data'] as List;
             final convertedClientList =
                 clients.map((e) => Client.fromJson(e)).toList();
             yield state.copyWith(
@@ -61,7 +61,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         final params = {
           'month_year':
               '${DateTime.now().year}-${DateTime.now().month < 10 ? DateTime.now().month.toString().padLeft(2, '0') : DateTime.now().month.toString()}',
-          'channel_partner_id': state.channelPartnerId,
+          'with_contact_person': '1'
         };
         if (state.selectedPos != 0) {
           params.addAll(
@@ -90,9 +90,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           yield state.copyWith(
             isListLoading: false,
             offers: List.from(state.offers, growable: true)
-              ..addAll(offers.offers),
+              ..addAll(offers.offers.data),
             page: event.page,
-            lastPage: offers.lastPage,
+            lastPage: offers.offers.lastPage,
           );
         }
       } catch (e) {

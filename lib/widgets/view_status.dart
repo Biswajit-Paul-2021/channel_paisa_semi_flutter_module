@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// View Status Widget
 class ViewStatus extends StatelessWidget {
@@ -149,8 +150,9 @@ class _StatusItemWidget extends StatelessWidget {
           child: Text(
             child.title,
             style: selectedIndex == pos
-                ? activeStyle ?? TextStyle(fontWeight: FontWeight.bold)
-                : inactiveStyle,
+                ? GoogleFonts.workSans(
+                    textStyle: TextStyle(fontWeight: FontWeight.bold))
+                : GoogleFonts.workSans(),
           ),
         ),
       ],

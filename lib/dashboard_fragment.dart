@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:channel_paisa_semi_flutter_module/bloc/dashboard_bloc/dashboard_bloc.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_colors.dart';
 import 'package:channel_paisa_semi_flutter_module/constants/app_strings.dart';
+import 'package:channel_paisa_semi_flutter_module/widgets/subscribe_button.dart';
 import 'package:channel_paisa_semi_flutter_module/widgets/view_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recase/recase.dart';
 
 final platformDashboard = MethodChannel(AppStrings.methodChannelDashborad);
@@ -21,9 +25,12 @@ class _DashboardFragmentState extends State<DashboardFragment> {
   void initState() {
     super.initState();
     platformDashboard.setMethodCallHandler(_onNativeCallBack);
+    scrollController = ScrollController();
+    scrollController.addListener(_onScroll);
   }
 
   String name = '';
+  ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +65,10 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                       if (index == 0) {
                         return StatusItem(
                           child: Container(
-                            padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.grey.withOpacity(0.2),
                             ),
-                            child: Center(
-                                child: Text(
-                              'View All',
-                              style: TextStyle(
-                                color: AppColors.primaryDarkColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
+                            child: Image.asset('assets/view_all_icon.png'),
                           ),
                           title: 'View All',
                         );
@@ -91,20 +89,133 @@ class _DashboardFragmentState extends State<DashboardFragment> {
                             child: Text('No Offers found'),
                           );
                         }
-                        return ListView.builder(
-                          itemBuilder: (ctx, pos) {
-                            return Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              child: Image.network(
-                                state.offers[pos].path,
-                                fit: BoxFit.fill,
-                              ),
-                            );
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            context
+                                .read<DashboardBloc>()
+                                .add(GetOfferDashboardEvent(1));
                           },
-                          itemCount: state.offers.length,
+                          child: ListView.builder(
+                            controller: scrollController,
+                            itemBuilder: (ctx, pos) {
+                              if (state.offers.length == pos) {
+                                return SizedBox(
+                                  height: 60,
+                                  width: double.infinity,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                              }
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Card(
+                                    margin: EdgeInsets.only(
+                                      top: 4,
+                                      left: 4,
+                                      right: 4,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12),
+                                      ),
+                                    ),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      state.offers[pos].path,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    width: double.infinity,
+                                    margin: EdgeInsets.only(
+                                      bottom: 4,
+                                      left: 4,
+                                      right: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: AppColors.accentColor,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12),
+                                        bottomRight: Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Visibility(
+                                          visible: state.offers[pos]
+                                              .showSubscriptionButton,
+                                          child: Expanded(
+                                            child: SubscribeButton(
+                                              onTap: () => log('sdasd'),
+                                              title: 'Subscribe Now',
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: state
+                                              .offers[pos].showUploadButton,
+                                          child: Expanded(
+                                            child: TextButton.icon(
+                                              onPressed: () {
+                                                platformDashboard.invokeMethod(
+                                                  "orderNow",
+                                                  Map.of({
+                                                    'mobile': state
+                                                        .offers[pos]
+                                                        .representativeDetails
+                                                        .mobile
+                                                  }),
+                                                );
+                                              },
+                                              icon: Icon(Icons.call),
+                                              label: Text('Order Now'),
+                                              style: TextButton.styleFrom(
+                                                primary: AppColors.blackColor,
+                                                textStyle: GoogleFonts.workSans(
+                                                  textStyle: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        VerticalDivider(
+                                          color: AppColors.primaryColor,
+                                          width: 1.5,
+                                        ),
+                                        Visibility(
+                                          visible: state
+                                              .offers[pos].showUploadButton,
+                                          child: Expanded(
+                                            child: SubscribeButton(
+                                              onTap: () {
+                                                platformDashboard
+                                                    .invokeMethod("upload");
+                                              },
+                                              title: 'Upload',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                            itemCount: state.hasLastPageReached
+                                ? state.offers.length
+                                : state.offers.length + 1,
+                          ),
                         );
                       },
                     ),
@@ -130,6 +241,15 @@ class _DashboardFragmentState extends State<DashboardFragment> {
         );
         break;
       default:
+    }
+  }
+
+  void _onScroll() {
+    final state = context.read<DashboardBloc>().state;
+    if (!state.hasLastPageReached &&
+        scrollController.position.pixels ==
+            scrollController.position.maxScrollExtent) {
+      context.read<DashboardBloc>().add(GetOfferDashboardEvent(state.page + 1));
     }
   }
 }

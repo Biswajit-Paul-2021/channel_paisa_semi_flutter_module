@@ -30,6 +30,7 @@ dependencies:
   http: ^0.12.0
   flutter_bloc: ^6.0.6
   recase: ^3.0.0
+  google_fonts: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -46,8 +47,8 @@ flutter:
 
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - view_all_icon.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
