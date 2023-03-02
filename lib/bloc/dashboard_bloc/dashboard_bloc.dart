@@ -12,8 +12,8 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardState());
 
-  final clientApiUrl = 'http://stageapi.channelpaisa.com/api/v4/clients';
-  // final clientApiUrl = 'https://api.channelpaisa.com/api/v4/clients';
+  // final clientApiUrl = 'http://stageapi.channelpaisa.com/api/v4/clients';
+  final clientApiUrl = 'https://api.channelpaisa.com/api/v4/clients';
 
   final offerApiUrlAuthority = 'stageapi.channelpaisa.com';
   // final offerApiUrlAuthority = 'api.channelpaisa.com';
@@ -70,17 +70,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         if (event.page != 1) {
           params.addAll({'page': event.page.toString()});
         }
-        //!!TODO change to https while production
-        final uri = Uri.http(
-          offerApiUrlAuthority,
-          offerApiUrlUnencodedPath,
-          params,
-        );
-        //  final uri = Uri.https(
+        //!! TODO change to https while production
+        // final uri = Uri.http(
         //   offerApiUrlAuthority,
         //   offerApiUrlUnencodedPath,
         //   params,
         // );
+        final uri = Uri.https(
+          offerApiUrlAuthority,
+          offerApiUrlUnencodedPath,
+          params,
+        );
         final response = await http.get(
           uri,
           headers: {'auth-token': state.authToken},
