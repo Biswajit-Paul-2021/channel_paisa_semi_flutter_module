@@ -12,8 +12,8 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardState());
 
-  // final clientApiUrl = 'http://stageapi.channelpaisa.com/api/v4/clients';
-  final clientApiUrl = 'https://api.channelpaisa.com/api/v4/clients';
+  final clientApiUrl = 'http://stageapi.channelpaisa.com/api/v4/clients';
+  // final clientApiUrl = 'https://api.channelpaisa.com/api/v4/clients';
 
   final offerApiUrlAuthority = 'stageapi.channelpaisa.com';
   // final offerApiUrlAuthority = 'api.channelpaisa.com';
